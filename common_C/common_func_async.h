@@ -16,4 +16,23 @@ void runFuncAfterDelay(Func&& func, int delayMs, QObject* context = nullptr)
     QTimer::singleShot(delayMs, context, std::forward<Func>(func));
 }
 
+template <typename T, typename Worker, typename Callback>
+void runConcurrenWatcher(Worker&& worker, Callback&& onFinished, QObject* parent = nullptr) {
+    // chạy worker ở thread pool
+    auto future = QtConcurrent::run(std::forward<Worker>(worker));
+
+    // watcher sống theo parent, tự hủy khi xong
+    auto *watcher = new QFutureWatcher<T>(parent);
+
+    QObject::connect(watcher, &QFutureWatcher<T>::finished, parent, [watcher, onFinished]() {
+        // lấy kết quả (đang ở main thread vì signal/slot)
+        const T result = watcher->future().result();
+        // gọi callback UI
+        onFinished(result);
+        watcher->deleteLater();
+    }, Qt::QueuedConnection);
+
+    watcher->setFuture(future);
+}
+
 #endif // COMMON_FUNC_ASYNC_H

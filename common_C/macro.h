@@ -33,14 +33,14 @@
      m_##var_name = value;\
     }
 
-#define QListVariable(type, var_name) \
+#define QVectorVariable(type, var_name) \
 private: \
-    QList<type> m_##var_name; \
+    QVector<type> m_##var_name; \
 public: \
-    const QList<type>& get_##var_name() const { \
+    const QVector<type>& get_##var_name() const { \
         return m_##var_name; \
     } \
-    void set_##var_name(const QList<type> &list) { \
+    void set_##var_name(const QVector<type> &list) { \
         if (m_##var_name == list) return; \
         m_##var_name = list; \
     } \

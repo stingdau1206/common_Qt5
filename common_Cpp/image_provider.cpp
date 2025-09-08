@@ -2,6 +2,7 @@
 
 ImageProvider::ImageProvider() : QQuickImageProvider(QQuickImageProvider::Image)
 {
+    m_image = QImage();
 }
 
 QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
@@ -22,5 +23,8 @@ QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize &
 void ImageProvider::setImage(const QImage &image)
 {
     QMutexLocker locker(&m_mutex);  // Thread-safe
-    m_image = image;
+    if(m_image != image)
+    {
+        m_image = image;
+    }
 }

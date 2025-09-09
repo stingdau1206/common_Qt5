@@ -61,3 +61,8 @@ qint64 convertDateTimeStringToMsEpoch(const QString &dateTimeString, const QStri
 {
     return QDateTime::fromString(dateTimeString, format).toMSecsSinceEpoch();
 }
+
+QJsonObject convertQByteArrayToQjsonObject(const QByteArray &input)
+{
+    return QJsonDocument::fromJson(input).object();
+}

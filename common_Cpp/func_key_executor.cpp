@@ -17,7 +17,7 @@ void FuncKeyExecutor::addFunc(const QString &key, const std::function<void ()> &
     if(!functionHash.contains(key))
     {
         QTimer::singleShot(get_intervalMs(), this, [this, key]() {
-            logDebug() << "exec func for key" << key;
+            qDebug() << "exec func for key" << key;
             functionHash[key]();
             functionHash.remove(key);
         });

@@ -2,6 +2,7 @@
 #include <QDebug>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QDataStream>
 
 QString convertEpochMsToDateTimeString(qint64 epoch_ms, const QString &format){
     return QDateTime::fromMSecsSinceEpoch(epoch_ms).toString(format);
@@ -65,4 +66,20 @@ qint64 convertDateTimeStringToMsEpoch(const QString &dateTimeString, const QStri
 QJsonObject convertQByteArrayToQjsonObject(const QByteArray &input)
 {
     return QJsonDocument::fromJson(input).object();
+}
+
+QByteArray convertHashToByteArray(const QVariantHash &hash)
+{
+    QByteArray data;
+    QDataStream stream(&data, QIODevice::WriteOnly);
+    stream << hash;  // QVariantHash is streamable
+    return data;
+}
+
+QVariantHash convertByteArrayToHash(const QByteArray &data)
+{
+    QVariantHash hash;
+    QDataStream stream(data);
+    stream >> hash;  // Deserialize back to QVariantHash
+    return hash;
 }

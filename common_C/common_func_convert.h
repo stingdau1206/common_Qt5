@@ -13,4 +13,9 @@ QString convertEpochMsToDuration(qint64 epochMs);
 QString convertNumberToStringWithDots(int number);
 
 QJsonObject convertQByteArrayToQjsonObject(const QByteArray &input);
+
+QByteArray convertHashToByteArray(const QVariantHash &hash);
+
+QVariantHash convertByteArrayToHash(const QByteArray &data);
+
 #endif // COMMON_FUNC_CONVERT_H

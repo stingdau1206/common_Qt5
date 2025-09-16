@@ -18,4 +18,6 @@ QByteArray convertHashToByteArray(const QVariantHash &hash);
 
 QVariantHash convertByteArrayToHash(const QByteArray &data);
 
+QByteArray convertQImageToQByteArray(const QImage &image, const char *format = "JPG");
+
 #endif // COMMON_FUNC_CONVERT_H

@@ -3,6 +3,8 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDataStream>
+#include <QBuffer>
+#include <QImage>
 
 QString convertEpochMsToDateTimeString(qint64 epoch_ms, const QString &format){
     return QDateTime::fromMSecsSinceEpoch(epoch_ms).toString(format);
@@ -82,4 +84,14 @@ QVariantHash convertByteArrayToHash(const QByteArray &data)
     QDataStream stream(data);
     stream >> hash;  // Deserialize back to QVariantHash
     return hash;
+}
+
+QByteArray convertQImageToQByteArray(const QImage &image, const char *format)
+{
+    QByteArray imageData;
+    QBuffer buffer(&imageData);
+    buffer.open(QIODevice::WriteOnly);
+    image.save(&buffer, format);
+
+    return imageData;
 }

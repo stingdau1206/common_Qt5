@@ -29,3 +29,12 @@ bool deleteFile(const QString &filePath) {
         return false;
     }
 }
+
+QByteArray readFile(const QString &filePath)
+{
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadOnly))
+        return QByteArray(); // trả về rỗng nếu mở file thất bại
+
+    return file.readAll(); // đọc toàn bộ nội dung
+}

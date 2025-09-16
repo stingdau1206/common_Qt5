@@ -6,4 +6,7 @@
 QString getFileNameWithoutExt(const QString &filePath);
 
 bool deleteFile(const QString &filePath);
+
+QByteArray readFile(const QString &filePath);
+
 #endif // COMMON_FUNC_FILE_H

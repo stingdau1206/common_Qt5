@@ -5,5 +5,6 @@
 #include "func_key_executor.h"
 #include "task_queue_process.h"
 #include "task_priority_queue.h"
+#include "fuzzysearch_index.h"
 
 #endif // COMMON_CPP_H

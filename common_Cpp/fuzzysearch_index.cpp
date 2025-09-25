@@ -1,6 +1,6 @@
 #include "fuzzysearch_index.h"
 
-void FuzzySearchIndex::buildIndex(const QVector<QString> &elements) {
+void FuzzySearchIndex::buildIndex(const QList<QString> &elements) {
     m_ngramIndex.clear();
     m_originalElements = elements;
     m_elementToIndex.clear();
@@ -38,11 +38,11 @@ void FuzzySearchIndex::removeElement(const QString &element) {
     m_elementToIndex.remove(element);
 }
 
-QVector<QPair<QString, double> > FuzzySearchIndex::findTopNSimilar(const QString &input, int N, double thresholdScore, double maxCpuUsageRatio) const
+QList<QPair<QString, double> > FuzzySearchIndex::findTopNSimilar(const QString &input, int N, double thresholdScore, double maxCpuUsageRatio) const
 {
     if (N <= 0) return {};
 
-    QVector<QString> candidates = findTopCandidates(input, 20*N);
+    QList<QString> candidates = findTopCandidates(input, 20*N);
 
     if (candidates.isEmpty()) return {};
 
@@ -80,7 +80,7 @@ QVector<QPair<QString, double> > FuzzySearchIndex::findTopNSimilar(const QString
         }
     }
 
-    QVector<QPair<QString, double>> topNResults;
+    QList<QPair<QString, double>> topNResults;
     topNResults.reserve(minHeap.size());
     while (!minHeap.empty()) {
         if (minHeap.top().score >= thresholdScore) {
@@ -95,7 +95,7 @@ QVector<QPair<QString, double> > FuzzySearchIndex::findTopNSimilar(const QString
     return topNResults;
 }
 
-QVector<QString> FuzzySearchIndex::findTopCandidates(const QString &input, int numCandidates) const {
+QList<QString> FuzzySearchIndex::findTopCandidates(const QString &input, int numCandidates) const {
     if (input.isEmpty() || m_ngramIndex.isEmpty()) return {};
 
     QHash<int, int> candidateScores;
@@ -111,7 +111,7 @@ QVector<QString> FuzzySearchIndex::findTopCandidates(const QString &input, int n
     }
 
     using ScorePair = QPair<int, int>;
-    std::priority_queue<ScorePair, QVector<ScorePair>, std::greater<ScorePair>> minHeap;
+    std::priority_queue<ScorePair, QList<ScorePair>, std::greater<ScorePair>> minHeap;
     for (auto it = candidateScores.constBegin(); it != candidateScores.constEnd(); ++it) {
         int elementIndex = it.key();
         if (m_originalElements.at(elementIndex).isEmpty()) continue;
@@ -124,7 +124,7 @@ QVector<QString> FuzzySearchIndex::findTopCandidates(const QString &input, int n
         }
     }
 
-    QVector<QString> topCandidates;
+    QList<QString> topCandidates;
     topCandidates.reserve(minHeap.size());
     while (!minHeap.empty()) {
         topCandidates.append(m_originalElements.at(minHeap.top().second));

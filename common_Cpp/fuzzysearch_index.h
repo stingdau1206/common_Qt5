@@ -2,7 +2,7 @@
 #include <QHash>
 #include <QString>
 #include <QDebug>
-#include <QVector>
+#include <QList>
 #include <QtConcurrent>
 #include <queue>
 #include <QElapsedTimer>
@@ -28,7 +28,7 @@ public:
     // --- Giao diện Public ---
 
     // 1. Xây dựng chỉ mục từ một danh sách các chuỗi (elements)
-    void buildIndex(const QVector<QString>& elements);
+    void buildIndex(const QList<QString>& elements);
 
     // 2. Thêm một phần tử mới vào chỉ mục
     void addElement(const QString& element);
@@ -37,7 +37,7 @@ public:
     void removeElement(const QString& element);
 
     // 4. Hàm tìm kiếm chính
-    QVector<QPair<QString, double>> findTopNSimilar(const QString& input,
+    QList<QPair<QString, double>> findTopNSimilar(const QString& input,
         int N,
         double thresholdScore = 50,
         double maxCpuUsageRatio = 0.5
@@ -47,7 +47,7 @@ public:
 private:
     // --- Các phương thức Private và biến thành viên ---
 
-    QVector<QString> findTopCandidates(const QString& input, int numCandidates) const;
+    QList<QString> findTopCandidates(const QString& input, int numCandidates) const;
 
     void updateNgramsForElement(int elementIndex, const QString& element);
 
@@ -58,7 +58,7 @@ private:
     static double calculateSingleSimilarity(const QString &shortStr, const QString &longStr);
 
     int m_ngramSize;
-    QHash<QString, QVector<int>> m_ngramIndex;
-    QVector<QString> m_originalElements;
+    QHash<QString, QList<int>> m_ngramIndex;
+    QList<QString> m_originalElements;
     QHash<QString, int> m_elementToIndex;
 };

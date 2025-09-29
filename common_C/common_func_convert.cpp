@@ -95,3 +95,8 @@ QByteArray convertQImageToQByteArray(const QImage &image, const char *format)
 
     return imageData;
 }
+
+QByteArray convertQJsonObjectToQByteArray(const QJsonObject &input)
+{
+    return QJsonDocument(input).toJson(QJsonDocument::Compact);
+}

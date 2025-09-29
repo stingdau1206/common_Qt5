@@ -14,6 +14,8 @@ QString convertNumberToStringWithDots(int number);
 
 QJsonObject convertQByteArrayToQjsonObject(const QByteArray &input);
 
+QByteArray convertQJsonObjectToQByteArray(const QJsonObject &input);
+
 QByteArray convertHashToByteArray(const QVariantHash &hash);
 
 QVariantHash convertByteArrayToHash(const QByteArray &data);

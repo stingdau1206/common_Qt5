@@ -38,3 +38,8 @@ QByteArray readFile(const QString &filePath)
 
     return file.readAll(); // đọc toàn bộ nội dung
 }
+
+bool pathIsExist(const QString &filePath)
+{
+    return QFile::exists(filePath);
+}

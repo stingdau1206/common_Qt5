@@ -15,6 +15,6 @@ QString getAlphanumeric(const QString& input);
 
 QString filterAlphanumeric(QString input);
 
-QString hashPassword(const QString& password);
+QByteArray hashPassword(const QString& password);
 
 #endif // STRING_COMMON_FUNC_H

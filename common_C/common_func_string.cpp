@@ -69,8 +69,8 @@ QString filterAlphanumeric(QString input) {
     return input.remove(regex);
 }
 
-QString hashPassword(const QString &password) {
+QByteArray hashPassword(const QString &password) {
     QByteArray data = password.toUtf8();
     QByteArray hash = QCryptographicHash::hash(data, QCryptographicHash::Sha256);
-    return hash.toHex();  // trả về dạng chuỗi hex dễ lưu trữ
+    return hash;
 }

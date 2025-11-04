@@ -74,3 +74,8 @@ QByteArray hashPassword(const QString &password) {
     QByteArray hash = QCryptographicHash::hash(data, QCryptographicHash::Sha256);
     return hash;
 }
+
+QString getLastElementAfterSpecialChar(const QString &input, const QChar &special_char)
+{
+    return input.section(special_char, -1);
+}

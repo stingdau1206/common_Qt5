@@ -17,4 +17,6 @@ QString filterAlphanumeric(QString input);
 
 QByteArray hashPassword(const QString& password);
 
+QString getLastElementAfterSpecialChar(const QString &input, const QChar &special_char);
+
 #endif // STRING_COMMON_FUNC_H

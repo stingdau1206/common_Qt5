@@ -63,6 +63,36 @@ public: \
         m_##var_name.clear(); \
     }
 
+#define QListVariable(type, var_name) \
+private: \
+    QList<type> m_##var_name; \
+public: \
+    const QList<type>& get_##var_name() const { \
+        return m_##var_name; \
+    } \
+    void set_##var_name(const QList<type> &list) { \
+        if (m_##var_name == list) return; \
+        m_##var_name = list; \
+    } \
+    void add_##var_name##_element(const type &value) { \
+        m_##var_name.append(value); \
+    } \
+    void update_##var_name##_element(int index, const type &value) { \
+        if (index < 0 || index >= m_##var_name.size() || m_##var_name.at(index) == value) { \
+            return; \
+        } \
+        m_##var_name[index] = value; \
+    } \
+    void remove_##var_name##_element(int index) { \
+        if (index < 0 || index >= m_##var_name.size()) { \
+            return; \
+        } \
+        m_##var_name.removeAt(index); \
+    } \
+    void clear_##var_name() { \
+        m_##var_name.clear(); \
+    }
+
 #define QHashVariable(type_key, type_value, var_name) \
     private: \
     QHash<type_key, type_value> m_##var_name; \

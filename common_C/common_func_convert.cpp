@@ -5,6 +5,7 @@
 #include <QDataStream>
 #include <QBuffer>
 #include <QImage>
+#include <QJsonArray>
 
 QString convertEpochMsToDateTimeString(qint64 epoch_ms, const QString &format){
     return QDateTime::fromMSecsSinceEpoch(epoch_ms).toString(format);
@@ -99,4 +100,15 @@ QByteArray convertQImageToQByteArray(const QImage &image, const char *format)
 QByteArray convertQJsonObjectToQByteArray(const QJsonObject &input)
 {
     return QJsonDocument(input).toJson(QJsonDocument::Compact);
+}
+
+QStringList convertQJsonArrayToQStringList(const QJsonArray &jsonArray)
+{
+    QStringList stringList;
+    for (const QJsonValue& value : jsonArray) {
+        if (value.isString()) {
+            stringList.append(value.toString());
+        }
+    }
+    return stringList;
 }

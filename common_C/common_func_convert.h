@@ -22,4 +22,6 @@ QVariantHash convertByteArrayToHash(const QByteArray &data);
 
 QByteArray convertQImageToQByteArray(const QImage &image, const char *format = "JPG");
 
+QStringList convertQJsonArrayToQStringList(const QJsonArray &input);
+
 #endif // COMMON_FUNC_CONVERT_H
